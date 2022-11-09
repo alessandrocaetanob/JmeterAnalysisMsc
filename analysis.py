@@ -7,15 +7,23 @@ from matplotlib.lines import Line2D
 from matplotlib.patches import Polygon
 import csv
 import sys
+import os
  
 elapsed = {}
 timestamps = {}
 starttimes = {}
 errors = {}
- 
+
+files = []
+filepath = os.path.dirname(os.path.abspath(__file__))+'\\'+sys.argv[1]
+# list filestypes for all files in directory passed as argument
+for file in os.listdir(filepath):
+    if file.endswith(".jtl"):
+        files.append(filepath+'\\'+file)
+
 # Parse the CSV files
-for file in sys.argv[1:]:
-  threads = int(file.split('-')[0])
+for file in files:
+  threads = int(file.replace(filepath+'\\','').split('-')[0])
   for row in csv.DictReader(open(file)):
     if (not row['label'] in elapsed):
       elapsed[row['label']] = {}
@@ -101,7 +109,7 @@ for label in elapsed:
  
   # Label the axis
   ax1.set_title(label)
-  ax1.set_xlabel('Number of concurrent requests')
+  ax1.set_xlabel('Experiment ID')
   ax2.set_ylabel('Requests per second')
   ax1.set_ylabel('Milliseconds')
   ax1.set_xticks(range(1, len(plot_labels) + 1, 2))
@@ -125,7 +133,7 @@ for label in elapsed:
   line2 = Line2D([], [], marker='o', color=paleblue, markersize=8, linewidth=2)
   line3 = Line2D([], [], marker='x', color='r', linewidth=0, markeredgewidth=2)
   prop = matplotlib.font_manager.FontProperties(size='small')
-  figlegend((line1, line2, line3), ('Response Time', 'Throughput', 'Failures (50x)'),
+  figlegend((line1, line2, line3), ('Response Time', 'Throughput', 'Failures'),
     'lower center', prop=prop, ncol=3)
  
   # Write the PNG file
