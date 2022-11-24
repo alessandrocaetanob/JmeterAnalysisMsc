@@ -1,6 +1,6 @@
 
 from pylab import *
-import numpy as na
+import numpy as np
 import matplotlib.font_manager
 from matplotlib.ticker import ScalarFormatter
 from matplotlib.lines import Line2D
@@ -48,7 +48,7 @@ for label in elapsed:
     # Fix the problem where arrays can have 0 samples
     if (len(elapsed[label][threads]) == 0):
       elapsed[label][threads] = [0]
-    elapsed[label][threads] = na.array(elapsed[label][threads])
+    elapsed[label][threads] = np.array(elapsed[label][threads])
     elapsed[label][threads] = preprocessing.minmax_scale(elapsed[label][threads],feature_range=(0, 1), axis=0, copy=True)
     # # elapsed[label][threads] = preprocessing.normalize([elapsed[label][threads]], norm='l2')[0]
     # # elapsed[label][threads] = preprocessing.scale(elapsed[label][threads], axis=0, with_mean=True, with_std=True, copy=True)
@@ -59,7 +59,7 @@ for label in timestamps:
     # Fix the problem where arrays can have 0 samples
     if (len(timestamps[label][threads]) == 0):
       timestamps[label][threads] = [0]
-    timestamps[label][threads] = na.array(timestamps[label][threads])
+    timestamps[label][threads] = np.array(timestamps[label][threads])
     timestamps[label][threads] = preprocessing.minmax_scale(timestamps[label][threads],feature_range=(0, 1), axis=0, copy=True)
     # timestamps[label][threads] = preprocessing.normalize([timestamps[label][threads]], norm='l2')[0]
     # timestamps[label][threads] = preprocessing.scale(timestamps[label][threads], axis=0, with_mean=True, with_std=True, copy=True)
@@ -71,7 +71,7 @@ for label in starttimes:
     # Fix the problem where arrays can have 0 samples
     if (len(starttimes[label][threads]) == 0):
       starttimes[label][threads] = [0]
-    starttimes[label][threads] = na.array(starttimes[label][threads])
+    starttimes[label][threads] = np.array(starttimes[label][threads])
     starttimes[label][threads] = preprocessing.minmax_scale(starttimes[label][threads],feature_range=(0, 1), axis=0, copy=True)
     # starttimes[label][threads] = preprocessing.normalize([starttimes[label][threads]], norm='l2')[0]
     # starttimes[label][threads] = preprocessing.scale(starttimes[label][threads], axis=0, with_mean=True, with_std=True, copy=True)
@@ -83,7 +83,7 @@ for label in errors:
     # Fix the problem where arrays can have 0 samples
     if (len(errors[label][threads]) == 0):
       errors[label][threads] = [0]
-    errors[label][threads] = na.array(errors[label][threads])
+    errors[label][threads] = np.array(errors[label][threads])
     errors[label][threads] = preprocessing.minmax_scale(errors[label][threads],feature_range=(0, 1), axis=0, copy=True)
     # errors[label][threads] = preprocessing.normalize([errors[label][threads]], norm='l2')[0]
     # errors[label][threads] = preprocessing.scale(errors[label][threads], axis=0, with_mean=True, with_std=True, copy=True)
@@ -116,11 +116,11 @@ for label in elapsed:
     column += 1
  
 
-throughput_data = na.array(throughput_data)
+throughput_data = np.array(throughput_data)
 throughput_data = preprocessing.minmax_scale(throughput_data,feature_range=(0, 1), axis=0, copy=True)
 # throughput_data = preprocessing.normalize([throughput_data], norm='l2')[0]
 
-throughput_data = na.insert(throughput_data, 0, None)  
+throughput_data = np.insert(throughput_data, 0, None)  
 
 # Start a new figure
 fig = figure(figsize=(9, 6))
