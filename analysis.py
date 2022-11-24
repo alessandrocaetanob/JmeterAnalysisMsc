@@ -48,11 +48,11 @@ for label in elapsed:
   throughput_data = [None]
   error_x = []
   error_y = []
-  plot_labels = []
+  plot_labels = ["K8S","K3S","K8S + KubeEdge", 'K3S + KubeEdge']
   column = 1
   for thread_count in sort(list(elapsed[label].keys())):
     plot_data.append(elapsed[label][thread_count])
-    plot_labels.append(thread_count)
+    # plot_labels.append(thread_count)
     test_start = min(starttimes[label][thread_count])
     test_end = max(timestamps[label][thread_count])
     test_length = (test_end - test_start) / 1000
@@ -109,18 +109,18 @@ for label in elapsed:
  
   # Label the axis
   ax1.set_title(label)
-  ax1.set_xlabel('Experiment ID')
+  ax1.set_xlabel('Cluster Configuration')
   ax2.set_ylabel('Requests per second')
   ax1.set_ylabel('Milliseconds')
-  ax1.set_xticks(range(1, len(plot_labels) + 1, 2))
-  ax1.set_xticklabels(plot_labels[0::2])
+  ax1.set_xticks(range(1, len(plot_labels) + 1))
+  ax1.set_xticklabels(plot_labels)
   fig.subplots_adjust(top=0.9, bottom=0.15, right=0.85, left=0.15)
  
   # Turn off scientific notation for Y axis
   ax1.yaxis.set_major_formatter(ScalarFormatter(False))
  
-  # Set the lower y limit to the match the first column
-  ax1.set_ylim(ymin=bp['boxes'][0].get_ydata()[0])
+  # # Set the lower y limit to the match the first column
+  # ax1.set_ylim(ymin=bp['boxes'][0].get_ydata()[0])
  
   # Draw some tick lines
   ax1.yaxis.grid(True, linestyle='-', which='major', color='grey')
